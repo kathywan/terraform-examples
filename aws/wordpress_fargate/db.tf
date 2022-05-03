@@ -24,6 +24,7 @@ resource "aws_rds_cluster" "this" {
   }
   final_snapshot_identifier = "${var.prefix}-${var.environment}-${random_string.snapshot_suffix.result}"
   tags                      = var.tags
+  deletion_protection       = true
 }
 
 resource "aws_db_subnet_group" "this" {
