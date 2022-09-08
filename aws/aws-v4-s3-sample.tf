@@ -1,3 +1,16 @@
+variable "kwan_example_tags" {
+  description = "Tags to set for S3 bucket"
+  type        = map(string)
+  default     = {
+    project     = "kwan_example",
+    environment = "sandbox"
+  }
+}
+
+locals {
+  kwan_example_name = "kwan_example_s3_bucket"
+}
+
 resource "aws_s3_bucket" "kwan_example" {
   bucket = local.kwan_example_name
   tags   = var.kwan_example_tags
