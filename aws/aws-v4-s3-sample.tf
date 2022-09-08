@@ -17,19 +17,19 @@ resource "aws_s3_bucket" "kwan_example" {
 }
 
 resource "aws_s3_bucket_acl" "kwan_example" {
-  bucket = local.kwan_example_name
+  bucket = aws_s3_bucket.kwan_example.bucket
   acl    = "private"
 }
 
 resource "aws_s3_bucket_versioning" "kwan_example" {
-  bucket = local.kwan_example_name
+  bucket = aws_s3_bucket.kwan_example.bucket
   versioning_configuration {
     status = "Enabled"
   }
 }
 
 resource "aws_s3_bucket_replication_configuration" "kwan_example" {
-  bucket = local.kwan_example_name
+  bucket = aws_s3_bucket.kwan_example.bucket
   role   = aws_iam_role.s3_role_kwan_example.arn
   rule {
     id     = "${local.kwan_example_name}-replication-id"
@@ -49,7 +49,7 @@ resource "aws_s3_bucket_replication_configuration" "kwan_example" {
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "kwan_example" {
-  bucket = local.kwan_example_name
+  bucket = aws_s3_bucket.kwan_example.bucket
   rule {
     apply_server_side_encryption_by_default {
       kms_master_key_id = aws_kms_key.kwan_example.arn
@@ -59,7 +59,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "kwan_example" {
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "kwan_example" {
-  bucket = local.kwan_example_name
+  bucket = aws_s3_bucket.kwan_example.bucket
   rule {
     status = "Enabled"
     id     = "kwan_example lifecycle rule"
@@ -82,13 +82,13 @@ resource "aws_s3_bucket" "kwan_example_us_west_1_crr" {
 
 resource "aws_s3_bucket_acl" "kwan_example_us_west_1_crr" {
   provider = aws.us-west-1
-  bucket   = local.kwan_example_crr
+  bucket   = aws_s3_bucket.kwan_example_crr.bucket
   acl      = "private"
 }
 
 resource "aws_s3_bucket_versioning" "kwan_example_us_west_1_crr" {
   provider = aws.us-west-1
-  bucket   = local.kwan_example_crr
+  bucket   = aws_s3_bucket.kwan_example_crr.bucket
   versioning_configuration {
     status = "Enabled"
   }
@@ -96,7 +96,7 @@ resource "aws_s3_bucket_versioning" "kwan_example_us_west_1_crr" {
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "kwan_example_us_west_1_crr" {
   provider = aws.us-west-1
-  bucket   = local.kwan_example_crr
+  bucket   = aws_s3_bucket.kwan_example_crr.bucket
   rule {
     apply_server_side_encryption_by_default {
       kms_master_key_id = aws_kms_key.kwan_example_us_west_1_crr.arn
@@ -107,7 +107,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "kwan_example_us_w
 
 resource "aws_s3_bucket_lifecycle_configuration" "kwan_example_us_west_1_crr" {
   provider = aws.us-west-1
-  bucket   = local.kwan_example_crr
+  bucket   = aws_s3_bucket.kwan_example_crr.bucket
   rule {
     status = "Enabled"
     id     = "kwan_example_crr lifecycle rule"
