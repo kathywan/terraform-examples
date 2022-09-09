@@ -82,13 +82,13 @@ resource "aws_s3_bucket" "kwan_example_us_west_1_crr" {
 
 resource "aws_s3_bucket_acl" "kwan_example_us_west_1_crr" {
   provider = aws.us-west-1
-  bucket   = aws_s3_bucket.kwan_example_crr.id
+  bucket   = aws_s3_bucket.kwan_example_us_west_1_crr.id
   acl      = "private"
 }
 
 resource "aws_s3_bucket_versioning" "kwan_example_us_west_1_crr" {
   provider = aws.us-west-1
-  bucket   = aws_s3_bucket.kwan_example_crr.id
+  bucket   = aws_s3_bucket.kwan_example_us_west_1_crr.id
   versioning_configuration {
     status = "Enabled"
   }
@@ -96,7 +96,7 @@ resource "aws_s3_bucket_versioning" "kwan_example_us_west_1_crr" {
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "kwan_example_us_west_1_crr" {
   provider = aws.us-west-1
-  bucket   = aws_s3_bucket.kwan_example_crr.id
+  bucket   = aws_s3_bucket.kwan_example_us_west_1_crr.id
   rule {
     apply_server_side_encryption_by_default {
       kms_master_key_id = aws_kms_key.kwan_example_us_west_1_crr.arn
@@ -107,7 +107,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "kwan_example_us_w
 
 resource "aws_s3_bucket_lifecycle_configuration" "kwan_example_us_west_1_crr" {
   provider = aws.us-west-1
-  bucket   = aws_s3_bucket.kwan_example_crr.id
+  bucket   = aws_s3_bucket.kwan_example_us_west_1_crr.id
   rule {
     status = "Enabled"
     id     = "kwan_example_crr lifecycle rule"
